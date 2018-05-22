@@ -100,11 +100,11 @@ public class RetirementController implements Initializable {
 		}
 
 		//
-		// TODO: Validate Working Annual Return %, accept only numbers and decimals
-		// TODO: Validate Years retired, accepted only decimals
-		// TODO: Validate Retired Annual Return %, accept only numbers and decimals
-		// TODO: Validate Required Income, accept only decimals
-		// TODO: Validate Monthly SSI, accept only decimals
+		// TODO: Validate Working Annual Return %, accept only numbers and decimals------
+		// TODO: Validate Years retired, accepted only decimals----------
+		// TODO: Validate Retired Annual Return %, accept only numbers and decimals------
+		// TODO: Validate Required Income, accept only decimals---------
+		// TODO: Validate Monthly SSI, accept only decimals--------
 	}
 
 	@FXML
@@ -135,7 +135,7 @@ public class RetirementController implements Initializable {
 		txtMonthlySSI.setDisable(false);
 
 		// TODO: Clear, enable the rest of the input controls. Hint! You already have a
-		// HashMap of all the input controls....!!!!
+		// HashMap of all the input controls....!!!!---------
 	}
 
 	@FXML
@@ -150,5 +150,10 @@ public class RetirementController implements Initializable {
 		// TODO: Then calculate txtSaveEachMonth, using amount from txtWhatYouNeedToSave
 		// as input
 		
-			}
+		double whatToSave = Retirement.PV(Double.parseDouble(txtAnnualReturnRetired.getText())/12, Double.parseDouble(txtYearsRetired.getText())*12,Integer.parseInt(txtRequiredIncome.getText()) - Integer.parseInt(txtMonthlySSI.getText()), 0 , false);
+		txtWhatYouNeedToSave.setText(Double.toString(0.01*(Math.round(Math.abs(whatToSave)*100))));
+		
+		double saveMonthly = Retirement.PMT(Double.parseDouble(txtAnnualReturnWorking.getText())/12, Double.parseDouble(txtYearsToWork.getText())*12, 0, whatToSave , false);
+		txtSaveEachMonth.setText(Double.toString(0.01*(Math.round(saveMonthly*100))));
+	}
 }
